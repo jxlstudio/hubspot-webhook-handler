@@ -5,7 +5,7 @@ import { post } from 'axios';
 const app = express();
 app.use(json());
 
-const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
+const HUBSPOT_API_KEY = Netlify.env.get("HUBSPOT_API_KEY");
 
 app.post('/webhook-handler', async (req, res) => {
     const contact = req.body;
