@@ -1,9 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const axios = require('axios');
+import express from 'express';
+import { json } from 'body-parser';
+import { post } from 'axios';
 
 const app = express();
-app.use(bodyParser.json());
+app.use(json());
 
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 
@@ -22,7 +22,7 @@ app.post('/webhook-handler', async (req, res) => {
         }
 
         try {
-            await axios.post(
+            await post(
                 `https://api.hubapi.com/contacts/v1/contact/vid/${contact.objectId}/profile`,
                 {
                     properties: [
@@ -48,4 +48,4 @@ app.post('/webhook-handler', async (req, res) => {
     }
 });
 
-module.exports = app;
+export default app;
