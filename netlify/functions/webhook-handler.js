@@ -1,6 +1,6 @@
-const axios = require('axios');
+import { post } from 'axios';
 
-const HUBSPOT_API_KEY = Netlify.env.get("HUBSPOT_API_KEY");
+const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 
 const handler = async (event, context) => {
     const contact = JSON.parse(event.body);
@@ -17,7 +17,7 @@ const handler = async (event, context) => {
         }
 
         try {
-            await axios.post(
+            await post(
                 `https://api.hubapi.com/contacts/v1/contact/vid/${contact.objectId}/profile`,
                 {
                     properties: [
@@ -52,4 +52,4 @@ const handler = async (event, context) => {
     }
 };
 
-module.exports = { handler };
+export default { handler };
