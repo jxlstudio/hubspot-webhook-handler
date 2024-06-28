@@ -5,8 +5,8 @@ const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 exports.handler = async function(event, context) {
     const contact = JSON.parse(event.body);
 
-    if (contact && contact.properties && contact.objectId) {
-        let { firstname, lastname } = contact.properties;
+    if (contact && contact.firstname && contact.lastname && contact.hs_object_id) {
+        // let { firstname, lastname } = contact.properties;
 
         if (firstname) {
             firstname = firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase();
@@ -18,7 +18,7 @@ exports.handler = async function(event, context) {
 
         try {
             await axios.post(
-                `https://api.hubapi.com/contacts/v1/contact/vid/${contact.objectId}/profile`,
+                `https://api.hubapi.com/contacts/v1/contact/vid/${contact.hs_object_id}/profile`,
                 {
                     properties: [
                         { property: 'firstname', value: firstname },
