@@ -6,7 +6,8 @@ exports.handler = async function(event, context) {
     const contact = JSON.parse(event.body);
 
     if (contact && contact.firstname && contact.lastname && contact.hs_object_id) {
-        // let { firstname, lastname } = contact.properties;
+        let firstname = contact.firstname;
+        let lastname = contact.lastname;
 
         if (firstname) {
             firstname = firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase();
