@@ -1,8 +1,8 @@
-import { post } from 'axios';
+const axios = require('axios');
 
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 
-const handler = async (event, context) => {
+exports.handler = async function(event, context) {
     const contact = JSON.parse(event.body);
 
     if (contact && contact.properties && contact.objectId) {
@@ -17,7 +17,7 @@ const handler = async (event, context) => {
         }
 
         try {
-            await post(
+            await axios.post(
                 `https://api.hubapi.com/contacts/v1/contact/vid/${contact.objectId}/profile`,
                 {
                     properties: [
@@ -51,5 +51,3 @@ const handler = async (event, context) => {
         };
     }
 };
-
-export default { handler };
